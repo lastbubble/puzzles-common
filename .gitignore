@@ -1,4 +1,10 @@
+.DS_Store
+
+.classpath
+.project
+
 .gradle
+/bin/
 /build/
 
 # Ignore Gradle GUI config
