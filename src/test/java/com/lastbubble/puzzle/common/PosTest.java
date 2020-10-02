@@ -4,7 +4,6 @@ import static com.lastbubble.puzzle.common.RandomNumbers.*;
 import static org.junit.Assert.*;
 
 import java.util.stream.IntStream;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

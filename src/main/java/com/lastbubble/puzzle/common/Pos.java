@@ -1,9 +1,12 @@
 package com.lastbubble.puzzle.common;
 
 import java.util.Objects;
+import java.util.function.BiPredicate;
 import java.util.stream.IntStream;
 
 public class Pos {
+
+  public static final BiPredicate<Integer, Integer> VALID = (x, y) -> (x >= 0) && (y >= 0);
 
   private static Pos[] cache = new Pos[16 * 16];
   static {
