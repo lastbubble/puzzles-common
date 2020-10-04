@@ -3,6 +3,8 @@ package com.lastbubble.puzzle.common;
 import static org.junit.Assert.assertThat;
 
 import co.unruly.matchers.OptionalMatchers;
+import co.unruly.matchers.StreamMatchers;
+
 import org.junit.Test;
 
 public class MoverTest {
@@ -28,5 +30,13 @@ public class MoverTest {
     assertThat(move.down(Pos.at(1,0), 2), OptionalMatchers.contains(Pos.at(1,2)));
     assertThat(move.left(Pos.at(2,1), 2), OptionalMatchers.contains(Pos.at(0,1)));
     assertThat(move.right(Pos.at(0,1), 2), OptionalMatchers.contains(Pos.at(2,1)));
+  }
+
+  @Test public void neighborsOfCenter() {
+    assertThat(move.neighborsOf(Pos.at(1,1)), StreamMatchers.contains(
+      Pos.at(0,0), Pos.at(1,0), Pos.at(2,0),
+      Pos.at(0,1),              Pos.at(2,1),
+      Pos.at(0,2), Pos.at(1,2), Pos.at(2,2)
+    ));
   }
 }

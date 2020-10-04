@@ -6,8 +6,8 @@ import java.util.function.BiPredicate;
 public enum Direction {
 
   UP(0,-1),
-  DOWN(0,1),
   LEFT(-1,0),
+  DOWN(0,1),
   RIGHT(1,0);
 
   private final int deltaX;
@@ -17,6 +17,8 @@ public enum Direction {
     this.deltaX = deltaX;
     this.deltaY = deltaY;
   }
+
+  public Direction opposite() { return Direction.values()[(ordinal() + 2) & 3]; }
 
   public Optional<Pos> move(BiPredicate<Integer, Integer> isValid, Pos pos, int steps) {
     int newX = pos.x() + deltaX * steps;

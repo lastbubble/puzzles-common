@@ -1,8 +1,7 @@
 package com.lastbubble.puzzle.common;
 
-import static org.junit.Assert.assertThat;
-
 import static com.lastbubble.puzzle.common.Direction.*;
+import static org.junit.Assert.*;
 
 import java.util.function.BiPredicate;
 
@@ -25,5 +24,12 @@ public class DirectionTest {
     assertThat(DOWN.move(isValid, Pos.at(0,2), 2), OptionalMatchers.empty());
     assertThat(LEFT.move(isValid, Pos.at(3,1), 2), OptionalMatchers.empty());
     assertThat(RIGHT.move(isValid, Pos.at(3,1), 2), OptionalMatchers.empty());
+  }
+
+  @Test public void opposite() {
+    assertSame(UP.opposite(), DOWN);
+    assertSame(DOWN.opposite(), UP);
+    assertSame(LEFT.opposite(), RIGHT);
+    assertSame(RIGHT.opposite(), LEFT);
   }
 }

@@ -74,6 +74,23 @@ public class GridPrinterTest {
     ));
   }
 
+  @Test public void gridWithRegionsWithBordersSuppressed() {
+    whenGridIs(gridBuilder.add(Cell.at(2, 2)).build());
+
+    BiPredicate<Pos, Pos> sameSign = (a, b) -> Math.signum(a.x() - a.y()) == Math.signum(b.x() - b.y());
+    printer().suppressBorderBetweenConnectedCells().print(grid, sameSign);
+
+    assertThat(raster.lines(), StreamMatchers.contains(
+      "┏━┳━━━┓",
+      "┃ ┃   ┃",
+      "┣━╋━┓ ┃",
+      "┃ ┃ ┃ ┃",
+      "┃ ┗━╋━┫",
+      "┃   ┃ ┃",
+      "┗━━━┻━┛"
+    ));
+  }
+
   @Test public void gridWithPath() {
     whenGridIs(gridBuilder.add(Cell.at(2, 2)).build());
 

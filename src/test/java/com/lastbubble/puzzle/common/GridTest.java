@@ -14,7 +14,6 @@ public class GridTest {
   private Grid<String> grid;
 
   @Test public void emptyGrid() {
-
     grid = builder.build();
 
     assertEquals(0, grid.width());
@@ -22,7 +21,6 @@ public class GridTest {
   }
 
   @Test public void withWidthAndHeight() {
-
     int x = positiveNumber();
     int y = positiveNumberThat(n -> n != x);
 
@@ -30,6 +28,15 @@ public class GridTest {
 
     assertEquals(x + 1, grid.width());
     assertEquals(y + 1, grid.height());
+  }
+
+  @Test public void squareGrid() {
+    int size = positiveNumber();
+
+    grid = builder.squareWithSize(size).build();
+
+    assertEquals(size, grid.width());
+    assertEquals(size, grid.height());
   }
 
   @Test public void withValues() {
@@ -74,6 +81,39 @@ public class GridTest {
         Pos.at(0,0), Pos.at(1,0), Pos.at(2,0),
         Pos.at(0,1), Pos.at(1,1), Pos.at(2,1)
       )
+    );
+  }
+
+  @Test public void cellsMatching() {
+    grid = builder
+      .add(Cell.at(0,0).withValue("e"))
+      .add(Cell.at(2,0).withValue("D"))
+      .add(Cell.at(1,1).withValue("C"))
+      .add(Cell.at(0,2).withValue("b"))
+      .add(Cell.at(2,2).withValue("a"))
+      .build();
+
+    assertThat(
+      grid.cellsMatching(c -> c.value().map(s -> s.equals(s.toUpperCase())).orElse(false)),
+      StreamMatchers.contains(Cell.at(2,0).withValue("D"), Cell.at(1,1).withValue("C"))
+    );
+  }
+
+  @Test public void copy() {
+    int size = positiveNumber() + 2;
+    grid = builder
+      .squareWithSize(size)
+      .add(Cell.at(0,1).withValue("abc"))
+      .add(Cell.at(1,0).withValue("def"))
+      .build();
+
+    Grid<String> otherGrid = grid.copy().add(Cell.at(1,0).withValue("ghi")).build();
+
+    assertEquals(size, otherGrid.width());
+    assertEquals(size, otherGrid.height());
+    assertThat(
+      otherGrid.cellsMatching(c -> c.value().isPresent()),
+      StreamMatchers.contains(Cell.at(1,0).withValue("ghi"), Cell.at(0,1).withValue("abc"))
     );
   }
 }

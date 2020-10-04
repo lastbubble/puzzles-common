@@ -19,11 +19,14 @@ public class GridPrinter<V> {
     this.toChar = toChar;
   }
 
+  private Border.Weight connectedWeight = LIGHT;
+  public GridPrinter<V> suppressBorderBetweenConnectedCells() { connectedWeight = NONE; return this; }
+
   public void print(Grid<V> grid) { print(grid, (a, b) -> true); }
 
   public void print(Grid<V> grid, BiPredicate<Pos, Pos> areConnected) {
     BiFunction<Pos, Optional<Pos>, Border.Weight> weightFor =
-      (a, b) -> b.map(x -> areConnected.test(a, x)).orElse(false) ? LIGHT : HEAVY;
+      (a, b) -> b.map(x -> areConnected.test(a, x)).orElse(false) ? connectedWeight : HEAVY;
 
     Mover move = grid.mover();
 
