@@ -97,7 +97,7 @@ public class Border {
     chars.put("LLLH", '\u253E'); // right heavy and left vertical light
     chars.put("LHLH", '\u253F'); // vertical light and horizontal heavy
     chars.put("HLLL", '\u2540'); // up heavy and down horizontal light
-    chars.put("LHLL", '\u2541'); // down heavy and up horizontal light
+    chars.put("LLHL", '\u2541'); // down heavy and up horizontal light
     chars.put("HLHL", '\u2542'); // vertical heavy and horizontal light
     chars.put("HHLL", '\u2543'); // left up heavy and right down light
     chars.put("HLLH", '\u2544'); // right up heavy and left down light
