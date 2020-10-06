@@ -116,4 +116,12 @@ public class GridTest {
       StreamMatchers.contains(Cell.at(1,0).withValue("ghi"), Cell.at(0,1).withValue("abc"))
     );
   }
+
+  @Test public void addedCells() {
+    grid = builder.add(Cell.at(1,1).withValue("abc")).build();
+
+    assertFalse(grid.copy().addedCells());
+    assertTrue(grid.copy().add(Cell.at(0,0).withValue("def")).addedCells());
+    assertTrue(grid.copy().add(Cell.at(1,1).withValue("abc")).addedCells());
+  }
 }
